@@ -27,4 +27,8 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="a01.raw" />
+    <None Include="a04.raw" />
+  </ItemGroup>
 </Project>

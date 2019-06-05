@@ -1,4 +1,14 @@
 ﻿#include "Data.h"
+#include <vector>
+
+//第二引数の配列から'-'で始まる要素を探し、該当要素のインデックスを第三引数に詰める。該当要素の個数を返す。
+void searchOptionArg(const int& size, char* argv[], vector<int>& indices);
+
+//各オプションのパラメーターを抽出する関数群
+//void setParameters_P(const char* fname, int& startSampleSuu, int& endSampleSuu);
+//void setParameters_F(const char* fname, int& startSampleSuu, int& endSampleSuu);
+//void setParameters_O(const char* fname);
+
 
 int main(int argc, char* argv[]) {
 	char* inputfilename1 = NULL; //接続前部の音声ファイル名
@@ -16,7 +26,66 @@ int main(int argc, char* argv[]) {
 	//さらに、「report4 -O output.raw -P nitech_jp_atr503_m001_a01.raw 0 19410 -F nitech_jp_atr503_m001_a04.raw 52063 70466」のように、順番を変えても同じ動作になるようにしなさい。
 	//作成してください。
 
-		//1 つ目の入力ファイルの読み込み
+	//コマンドライン引数の数が不適切な場合は異常終了
+	if (argc != 11) {
+		cerr << "Error : Please set args" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	//
+	const int requiredOptionNum = 3;
+	vector<int> optionIndices;
+	searchOptionArg(argc, argv, optionIndices);
+#ifdef _DEBUG
+	cout << "option Num : " << optionIndices.size() << endl;;
+#endif // DEBUG
+
+	//オプションが足らない場合は異常終了
+	if (optionIndices.size() != requiredOptionNum) {
+		cerr << "Error : Need -P & -F & -O options" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	//コマンドライン引き数の各値を変数に格納
+	for (int i = 0; i < requiredOptionNum; i++) {
+		int index = optionIndices.at(i);
+		switch (argv[index][1])
+		{
+		case 'P':
+			inputfilename1 = argv[index + 1];
+			startsamplesuu1 = atoi(argv[index + 2]);
+			endsamplesuu1 = atoi(argv[index + 3]);
+			break;
+		case 'F':
+			inputfilename2 = argv[index + 1];
+			startsamplesuu2 = atoi(argv[index + 2]);
+			endsamplesuu2 = atoi(argv[index + 3]);
+			break;
+		case 'O':
+			outputfilename = argv[index + 1];
+			break;
+		default:
+			//不適切なオプションがあれば異常終了
+			cerr << "Error : Found incorrect option = " << argv[index][1] << endl;
+			exit(EXIT_FAILURE);
+			break;
+		}
+	}
+
+#ifdef _DEBUG
+	cout << "inputfilename1  : " << inputfilename1  << endl;
+	cout << "startsamplesuu1 : " << startsamplesuu1 << endl;
+	cout << "endsamplesuu1   : " << endsamplesuu1   << endl;
+	
+	cout << "inputfilename2  : " << inputfilename2  << endl;
+	cout << "startsamplesuu2 : " << startsamplesuu2 << endl;
+	cout << "endsamplesuu2   : " << endsamplesuu2   << endl;
+			
+	cout << "outputfilename  : " << outputfilename  << endl;
+#endif // DEBUG
+
+
+	//1 つ目の入力ファイルの読み込み
 	filename = inputfilename1;
 	inputdata1.readrawfile(filename);
 	//2 つ目の入力ファイルの読み込み
@@ -51,4 +120,19 @@ int main(int argc, char* argv[]) {
 		exit(EXIT_FAILURE);
 	}
 	return 0;
+}
+
+
+void searchOptionArg(const int& size, char* argv[], vector<int>& indices)
+{
+	for (int i = 0; i < size; i++) {
+		if (argv[i][0] == '-') {
+			indices.push_back(i);
+		};
+	}
+}
+
+void setParameters_P(const char* fname, int& startSampleSuu, int& endSampleSuu)
+{
+
 }

@@ -157,6 +157,10 @@
   <ItemGroup>
     <ClInclude Include="Data.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="a01.raw" />
+    <None Include="a04.raw" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
