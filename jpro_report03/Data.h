@@ -8,7 +8,7 @@ class Data {
 	short* speechdata; //データの先頭ポインタ
 	int samplesize; //データ数
 public:
-	Data() {} //コンストラクタ
+	Data() { speechfilename = ""; speechdata = NULL; samplesize = 0; } //コンストラクタ
 	void readrawfile(const string&); //音声ファイルからデータを読み speechdata に格納
 	void writerawfile(const string&) const; //speechdata をバイナリ形式でファイルに書き込む
 	void memoryalloc(const int&); //speechdata のメモリを、short で memorysize 分確保する
