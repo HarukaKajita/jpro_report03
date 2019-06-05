@@ -132,7 +132,3 @@ void searchOptionArg(const int& size, char* argv[], vector<int>& indices)
 	}
 }
 
-void setParameters_P(const char* fname, int& startSampleSuu, int& endSampleSuu)
-{
-
-}
