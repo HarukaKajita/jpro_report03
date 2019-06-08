@@ -25,7 +25,7 @@ void Data::writerawfile(const string& filename) const {
 		cerr << "エラー：ファイルを開けません" << filename << "\n";
 		exit(EXIT_FAILURE);
 	}
-	cout << samplesize  << "?" << endl;
+	
 	fout.write((char*)speechdata, sizeof(short) * samplesize);//speechdataをsamplesizeの個数分ファイルに書き込む
 }
 
@@ -33,8 +33,6 @@ void Data::writerawfile(const string& filename) const {
 void Data::memoryalloc(const int& memorysize) {
 	delete[] this->speechdata;
 	this->speechdata = new short[memorysize];
-	cout << memorysize << endl;
-	//this->samplesize = 0;
 }
 
 //第 1 引数で指定された Data クラスのオブジェクト copymoto のデータメンバ speechdata[start]から
