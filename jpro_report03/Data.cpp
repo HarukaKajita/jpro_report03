@@ -25,7 +25,7 @@ void Data::writerawfile(const string& filename) const {
 		cerr << "エラー：ファイルを開けません" << filename << "\n";
 		exit(EXIT_FAILURE);
 	}
-	
+
 	fout.write((char*)speechdata, sizeof(short) * samplesize);//speechdataをsamplesizeの個数分ファイルに書き込む
 }
 
@@ -33,6 +33,10 @@ void Data::writerawfile(const string& filename) const {
 void Data::memoryalloc(const int& memorysize) {
 	delete[] this->speechdata;
 	this->speechdata = new short[memorysize];
+#ifdef _DEBUG
+	cout << "allocated memorysize : " << memorysize << endl;
+#endif // _DEBUG
+
 }
 
 //第 1 引数で指定された Data クラスのオブジェクト copymoto のデータメンバ speechdata[start]から
@@ -54,6 +58,13 @@ void Data::catdata(const Data& catmoto, const int& start, const int& end) {
 	//end 自身は含まない。つまり start=0,end=10 であれば、コピーされるのは 0 から 9 番目のデータまでである。
 	//作成してください。
 
+#ifdef _DEBUG
+	cout << "-----cat-----" << endl;
+	cout << "copied size : " << samplesize << endl;
+	cout << "cat    size : " << end - start << endl;
+	cout << "total  size : " << samplesize + end - start << endl;
+	cout << "-----/cat-----" << endl;
+#endif // _DEBUG
 	//後半のデータを詰める
 	for (int i = start; i < end; i++) {
 		this->speechdata[samplesize] = catmoto.speechdata[i];
