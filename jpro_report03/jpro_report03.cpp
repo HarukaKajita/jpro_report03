@@ -4,11 +4,6 @@
 //第二引数の配列から'-'で始まる要素を探し、該当要素のインデックスを第三引数に詰める。該当要素の個数を返す。
 void searchOptionArg(const int& size, char* argv[], vector<int>& indices);
 
-//各オプションのパラメーターを抽出する関数群
-//void setParameters_P(const char* fname, int& startSampleSuu, int& endSampleSuu);
-//void setParameters_F(const char* fname, int& startSampleSuu, int& endSampleSuu);
-//void setParameters_O(const char* fname);
-
 
 int main(int argc, char* argv[]) {
 	char* inputfilename1 = NULL; //接続前部の音声ファイル名
